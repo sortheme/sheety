@@ -12,10 +12,6 @@ class api{
 
     }
 
-    function get_time(){
-        return date('c');
-    }
-
     function set_base_url($url){
         $this->base_url = $url;
     }
