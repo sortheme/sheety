@@ -25,9 +25,9 @@ class api{
     }
 
     function set_sheet($sheet){
-        
         $this->sheet = $sheet;
     }
+
     function set_authorization($authorization){
         $this->authorization = $authorization;
     }
@@ -59,6 +59,22 @@ class api{
         }
         
         $data = $this->curl($url, 'POST', $headers, $fields);
+        return $data;
+    }
+
+    function update_row_in_sheet($fields, $id){
+        /** id is begining from 2 where id=2 is for first row (header is 1, so be carefull boy!) */
+        $url = $this->get_full_url();
+        $url .= '/'.$id;
+        $headers = array(
+            'Content-Type: application/json'
+        );
+        $auth = !empty($this->authorization) ? $this->authorization : '';
+        if($auth){
+            $headers[] = $auth;
+        }
+        
+        $data = $this->curl($url, 'PUT', $headers, $fields);
         return $data;
     }
 
