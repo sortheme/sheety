@@ -106,6 +106,21 @@ class api{
         return $data;
     }
 
+    function delete_row($id){
+        $url = $this->get_full_url();
+        $url .= '/'.$id;
+        $headers = array(
+            // 'Content-Type: application/json'
+        );
+        $auth = !empty($this->authorization) ? $this->authorization : '';
+        if($auth){
+            $headers[] = $auth;
+        }
+        
+        $data = $this->curl($url, 'DELETE', $headers, '');
+        return $data;
+    }
+
     private function curl($url, $type='POST', $headers=array(), $fields=''){
         $curl = curl_init();
         $args = array(
