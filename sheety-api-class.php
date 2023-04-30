@@ -61,6 +61,21 @@ class api{
         return $data;
     }
 
+    /** $filters should be an array of  'property' => 'value' */
+    function filter_sheet_rows($filters){
+        $s = array(
+            'filter' => $filters
+        );
+        $url = $this->get_full_url().'?'.http_build_query( $s);
+        $headers = array();
+        $auth = !empty($this->authorization) ? $this->authorization : '';
+        if($auth){
+            $headers[] = $auth;
+        }
+        $data = $this->curl($url, 'GET', $headers, '');
+        return $data;
+    }
+
     function add_new_row_to_sheet($fields){
         $url = $this->get_full_url();
         $headers = array(
