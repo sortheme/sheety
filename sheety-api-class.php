@@ -48,6 +48,19 @@ class api{
         return $data;
     }
 
+    function get_sheet_row($id){
+        /** for getting data we dont need content-type header */
+        $url = $this->get_full_url();
+        $url .= '/'.$id;
+        $headers = array();
+        $auth = !empty($this->authorization) ? $this->authorization : '';
+        if($auth){
+            $headers[] = $auth;
+        }
+        $data = $this->curl($url, 'GET', $headers, '');
+        return $data;
+    }
+
     function add_new_row_to_sheet($fields){
         $url = $this->get_full_url();
         $headers = array(
